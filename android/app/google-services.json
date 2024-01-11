@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1096030835912",
+    "project_id": "giaoxumyha",
+    "storage_bucket": "giaoxumyha.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1096030835912:android:7d7a5b6c27545f4e97c1fd",
+        "android_client_info": {
+          "package_name": "com.myha"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCFtUP7xArXcRuzW-FEVIYj4kc5W87A9wU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
