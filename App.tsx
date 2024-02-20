@@ -9,6 +9,9 @@ import {
 
 import store from './src/redux/store';
 import {Provider} from 'react-redux'
+import { NavigationContainer } from '@react-navigation/native';
+import RootNavigator from './src/navigation';
+import Toast from 'react-native-toast-message';
 
 function App(): React.JSX.Element {
   const requestUserPermission = async () =>{
@@ -33,9 +36,10 @@ function App(): React.JSX.Element {
   }, [])
   return (
     <Provider store={store}>
-      <View style={styles.container}>
-        <Text>Hello</Text>
-      </View>
+      <NavigationContainer>
+        <RootNavigator/>
+        <Toast/>
+      </NavigationContainer>
     </Provider>
   )
 }
