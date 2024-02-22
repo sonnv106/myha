@@ -1,17 +1,12 @@
 import React, { useEffect } from 'react';
-import {Alert, PermissionsAndroid} from 'react-native';
+import {Alert} from 'react-native';
 import messaging from '@react-native-firebase/messaging';
-import {
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
-
-import store from './src/redux/store';
+import {persistor, store} from './src/redux/store';
 import {Provider} from 'react-redux'
 import { NavigationContainer } from '@react-navigation/native';
 import RootNavigator from './src/navigation';
 import Toast from 'react-native-toast-message';
+import { PersistGate } from 'redux-persist/integration/react';
 
 function App(): React.JSX.Element {
   const requestUserPermission = async () =>{
@@ -36,20 +31,15 @@ function App(): React.JSX.Element {
   }, [])
   return (
     <Provider store={store}>
-      <NavigationContainer>
-        <RootNavigator/>
-        <Toast/>
-      </NavigationContainer>
+      <PersistGate persistor={persistor} loading={null}>
+        <NavigationContainer>
+          <RootNavigator/>
+          <Toast/>
+        </NavigationContainer>
+      </PersistGate>
+     
     </Provider>
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center'
-  }
-});
 
 export default App;
