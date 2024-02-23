@@ -8,7 +8,7 @@ const Splash = () => {
   useEffect(()=>{
     console.log('clear time out')
     const timeout = setTimeout(()=>{
-     navigate(SCREENS.BOTTOM_NAVIGATOR)
+     navigate(SCREENS.LOGIN)
     },2000)
     return ()=> clearTimeout(timeout)
   },[])
