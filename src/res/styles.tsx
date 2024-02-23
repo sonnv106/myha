@@ -5,5 +5,10 @@ const commonStyles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#FFF',
   },
+  row: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 })
 export default commonStyles

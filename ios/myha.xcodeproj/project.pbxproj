@@ -14,6 +14,7 @@
 		1B8C113B3CCFD3A183E635E3 /* Pods_myha_myhaTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1ADD1CCF5326DEF9FFD604D7 /* Pods_myha_myhaTests.framework */; };
 		67D000F71817D7769B6ADFD9 /* Pods_myha.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7EE8CF2C77D12A372058BB0 /* Pods_myha.framework */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		E75E63532B88FD35007AC2CF /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E75E63522B88FD35007AC2CF /* MaterialIcons.ttf */; };
 		E7FBE4312B4FE8840002364D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E7FBE4302B4FE8840002364D /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
@@ -45,6 +46,7 @@
 		89C6BE57DB24E9ADA2F236DE /* Pods-myha-myhaTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-myha-myhaTests.release.xcconfig"; path = "Target Support Files/Pods-myha-myhaTests/Pods-myha-myhaTests.release.xcconfig"; sourceTree = "<group>"; };
 		A7EE8CF2C77D12A372058BB0 /* Pods_myha.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_myha.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E71B0DAB2B54DB3500EFD8C0 /* myha.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = myha.entitlements; path = myha/myha.entitlements; sourceTree = "<group>"; };
+		E75E63522B88FD35007AC2CF /* MaterialIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
 		E7FBE4302B4FE8840002364D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
@@ -89,6 +91,7 @@
 		13B07FAE1A68108700A75B9A /* myha */ = {
 			isa = PBXGroup;
 			children = (
+				E75E63512B88FD16007AC2CF /* Fonts */,
 				E71B0DAB2B54DB3500EFD8C0 /* myha.entitlements */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.mm */,
@@ -151,6 +154,14 @@
 				89C6BE57DB24E9ADA2F236DE /* Pods-myha-myhaTests.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		E75E63512B88FD16007AC2CF /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				E75E63522B88FD35007AC2CF /* MaterialIcons.ttf */,
+			);
+			name = Fonts;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -247,6 +258,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E75E63532B88FD35007AC2CF /* MaterialIcons.ttf in Resources */,
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				E7FBE4312B4FE8840002364D /* GoogleService-Info.plist in Resources */,
@@ -613,10 +625,7 @@
 					"-DFOLLY_USE_LIBCPP=1",
 					"-DFOLLY_CFG_NO_COROUTINES=1",
 				);
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					" ",
-				);
+				OTHER_LDFLAGS = "$(inherited)  ";
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
 				USE_HERMES = true;
@@ -695,10 +704,7 @@
 					"-DFOLLY_USE_LIBCPP=1",
 					"-DFOLLY_CFG_NO_COROUTINES=1",
 				);
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					" ",
-				);
+				OTHER_LDFLAGS = "$(inherited)  ";
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
 				USE_HERMES = true;
