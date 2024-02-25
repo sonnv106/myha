@@ -3,8 +3,10 @@ import {
   Image,
   Pressable,
   SafeAreaView,
+  StatusBar,
   StyleSheet,
   Text,
+  TouchableOpacity,
   View,
 } from 'react-native'
 import React from 'react'
@@ -15,6 +17,7 @@ import {Icon, Input} from '@rneui/themed'
 const LoginScreen = () => {
   return (
     <SafeAreaView style={commonStyles.container}>
+      <StatusBar translucent />
       <View style={[commonStyles.container, styles.container]}>
         <View style={styles.circle}>
           <Image source={images.praying} style={styles.imagePraying} />
@@ -29,13 +32,45 @@ const LoginScreen = () => {
                 <Text style={styles.txtSignUp}>Log In</Text>
               </Pressable>
             </View>
-            <View>
+            <View style={styles.inputContainer}>
+              <Input
+                placeholder="Email"
+                placeholderTextColor={'#A8A7A7'}
+                inputContainerStyle={{
+                  borderColor: '#EAEAF5',
+                }}
+                inputStyle={{fontSize: 16}}
+                keyboardType="email-address"
+              />
               <Input
                 placeholder="Password"
                 rightIcon={
-                  <Icon name="visibility" color={'red'} type="materialIcons" />
+                  <TouchableOpacity>
+                    <Icon
+                      name="visibility"
+                      color={'#C3C2C2'}
+                      type="materialIcons"
+                      size={18}
+                    />
+                  </TouchableOpacity>
                 }
+                placeholderTextColor={'#A8A7A7'}
+                inputContainerStyle={{
+                  borderColor: '#EAEAF5',
+                }}
+                inputStyle={{fontSize: 16}}
+                secureTextEntry
               />
+              <Pressable>
+                <Text
+                  style={{
+                    backgroundColor: 'red',
+                    textAlign: 'right',
+                    marginRight: 10,
+                  }}>
+                  Forgot password?
+                </Text>
+              </Pressable>
             </View>
           </View>
         </View>
@@ -69,7 +104,6 @@ const styles = StyleSheet.create({
   modal: {
     borderRadius: 43,
     elevation: 3,
-    height: 300,
     width: '100%',
     backgroundColor: '#FFF',
     padding: 20,
@@ -130,5 +164,9 @@ const styles = StyleSheet.create({
     left: -60,
     overflow: 'hidden',
     // opacity: 0.5,
+  },
+  inputContainer: {
+    marginTop: 40,
+    // backgroundColor: 'red',
   },
 })
