@@ -25,11 +25,11 @@ const LoginScreen = () => {
         <View style={styles.content}>
           <View style={styles.modal}>
             <View style={[commonStyles.row, styles.viewBtn]}>
-              <Pressable style={styles.btnLogin}>
+              <Pressable style={styles.tabLogin}>
                 <Text style={styles.txtLogin}>Log In</Text>
               </Pressable>
               <Pressable style={styles.btnSignUp}>
-                <Text style={styles.txtSignUp}>Log In</Text>
+                <Text style={styles.txtSignUp}>Sign Up</Text>
               </Pressable>
             </View>
             <View style={styles.inputContainer}>
@@ -62,15 +62,20 @@ const LoginScreen = () => {
                 secureTextEntry
               />
               <Pressable>
-                <Text
-                  style={{
-                    backgroundColor: 'red',
-                    textAlign: 'right',
-                    marginRight: 10,
-                  }}>
-                  Forgot password?
-                </Text>
+                <Text style={styles.txtForgotPassword}>Forgot password?</Text>
               </Pressable>
+              <TouchableOpacity style={styles.btnLogin}>
+                <Text style={styles.txtLogIn}>Log In</Text>
+              </TouchableOpacity>
+              <Text style={styles.txtOr}>OR</Text>
+              <View style={styles.vGoogleFB}>
+                <Pressable style={styles.btnGoogle}>
+                  <Image source={images.icGoogle} />
+                </Pressable>
+                <Pressable style={styles.btnGoogle}>
+                  <Image source={images.icFacebook} />
+                </Pressable>
+              </View>
             </View>
           </View>
         </View>
@@ -96,26 +101,26 @@ const styles = StyleSheet.create({
   },
   content: {
     padding: 20,
-    // backgroundColor: '#DDD',
     position: 'absolute',
     width: '100%',
     top: 160,
   },
   modal: {
     borderRadius: 43,
-    elevation: 3,
+    elevation: 20,
+    borderWidth: 0.5,
+    borderColor: '#E7E4F1',
     width: '100%',
     backgroundColor: '#FFF',
     padding: 20,
     paddingTop: 50,
-    // backgroundColor: 'transparent',
-    shadowColor: '#000',
+    shadowColor: '#DED6F4',
     shadowOffset: {
-      width: 0,
-      height: 1,
+      width: 10,
+      height: 10,
     },
-    shadowOpacity: 0.22,
-    shadowRadius: 2.22,
+    shadowOpacity: 0.52,
+    shadowRadius: 5,
   },
   viewBtn: {
     shadowColor: '#DED6F4',
@@ -130,7 +135,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#EAEAF5',
   },
-  btnLogin: {
+  tabLogin: {
     width: '50%',
     justifyContent: 'center',
     alignItems: 'center',
@@ -163,10 +168,47 @@ const styles = StyleSheet.create({
     top: -180,
     left: -60,
     overflow: 'hidden',
-    // opacity: 0.5,
   },
   inputContainer: {
     marginTop: 40,
-    // backgroundColor: 'red',
+  },
+  txtForgotPassword: {
+    textAlign: 'right',
+    marginRight: 10,
+    color: '#A8A7A7',
+  },
+  btnLogin: {
+    width: '100%',
+    height: 45,
+    backgroundColor: '#FE7940',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 23,
+    marginTop: 54,
+  },
+  txtLogIn: {
+    color: '#FFFFFF',
+    fontWeight: 'bold',
+  },
+  txtOr: {
+    textAlign: 'center',
+    marginTop: 28,
+    color: '#A8A7A7',
+  },
+  vGoogleFB: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 17,
+  },
+  btnGoogle: {
+    width: 48,
+    height: 48,
+    borderRadius: 24,
+    borderColor: '#EAEAF5',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderWidth: 1,
+    marginHorizontal: 10,
   },
 })
