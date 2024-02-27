@@ -15,7 +15,8 @@ import commonStyles from '../../res/styles'
 import images from '../../res/images'
 import {Icon, Input} from '@rneui/themed'
 import colors from '../../res/colors'
-
+import {useTranslation} from 'react-i18next'
+import styles from './styles'
 const LoginScreen = () => {
   const [formType, setFormType] = useState('login')
   const [form, setForm] = useState({
@@ -23,9 +24,12 @@ const LoginScreen = () => {
     password: '',
     confirmPassword: '',
   })
-  const [secureTextEntryPassword, setSecureTextEntryPassword] = useState(true)
+  const [secureTextEntryPassword, setSecureTextEntryPassword] = useState(false)
   const [secureTextEntryCfPassword, setSecureTextEntryCfPassword] =
-    useState(true)
+    useState(false)
+
+  const {t} = useTranslation()
+
   const setFormTypeLogin = () => {
     setFormType('login')
   }
@@ -87,6 +91,7 @@ const LoginScreen = () => {
             <View style={styles.inputContainer}>
               <Input
                 placeholder="Email"
+                textContentType="oneTimeCode"
                 placeholderTextColor={colors.A8A7A7}
                 inputContainerStyle={styles.inputContainerStyle}
                 inputStyle={{fontSize: 16}}
@@ -94,27 +99,21 @@ const LoginScreen = () => {
               />
               <Input
                 placeholder="Password"
+                onFocus={() => {
+                  setSecureTextEntryPassword(true)
+                }}
                 rightIcon={
-                  <TouchableOpacity
+                  <Icon
+                    name={
+                      secureTextEntryPassword ? 'visibility' : 'visibility-off'
+                    }
+                    color={colors.C3C2C2}
+                    type="materialIcons"
+                    size={18}
                     onPress={() => {
                       setSecureTextEntryPassword(!secureTextEntryPassword)
-                    }}>
-                    {secureTextEntryPassword ? (
-                      <Icon
-                        name="visibility"
-                        color={colors.C3C2C2}
-                        type="materialIcons"
-                        size={18}
-                      />
-                    ) : (
-                      <Icon
-                        name="visibility-off"
-                        color={colors.C3C2C2}
-                        type="materialIcons"
-                        size={18}
-                      />
-                    )}
-                  </TouchableOpacity>
+                    }}
+                  />
                 }
                 placeholderTextColor={colors.A8A7A7}
                 inputContainerStyle={styles.inputContainerStyle}
@@ -124,27 +123,22 @@ const LoginScreen = () => {
               {formType == 'signup' ? (
                 <Input
                   placeholder="Confirm password"
+                  onFocus={() => setSecureTextEntryCfPassword(true)}
+                  textContentType="oneTimeCode"
                   rightIcon={
-                    <TouchableOpacity
+                    <Icon
+                      name={
+                        secureTextEntryCfPassword
+                          ? 'visibility'
+                          : 'visibility-off'
+                      }
+                      color={colors.C3C2C2}
+                      type="materialIcons"
+                      size={18}
                       onPress={() => {
                         setSecureTextEntryCfPassword(!secureTextEntryCfPassword)
-                      }}>
-                      {secureTextEntryCfPassword ? (
-                        <Icon
-                          name="visibility"
-                          color={colors.C3C2C2}
-                          type="materialIcons"
-                          size={18}
-                        />
-                      ) : (
-                        <Icon
-                          name="visibility-off"
-                          color={colors.C3C2C2}
-                          type="materialIcons"
-                          size={18}
-                        />
-                      )}
-                    </TouchableOpacity>
+                      }}
+                    />
                   }
                   placeholderTextColor={colors.A8A7A7}
                   inputContainerStyle={styles.inputContainerStyle}
@@ -159,7 +153,7 @@ const LoginScreen = () => {
               ) : null}
               <TouchableOpacity style={styles.btnLogin}>
                 <Text style={styles.txtLogIn}>
-                  {formType == 'login' ? `Log In` : `Sign Up`}
+                  {formType == 'login' ? t('login') : t('signup')}
                 </Text>
               </TouchableOpacity>
               <Text style={styles.txtOr}>OR</Text>
@@ -181,146 +175,3 @@ const LoginScreen = () => {
 }
 
 export default LoginScreen
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    position: 'relative',
-    paddingBottom: 200,
-    marginBottom: 200,
-  },
-  imagePraying: {
-    width: Dimensions.get('window').width,
-    position: 'absolute',
-    bottom: 50,
-    opacity: 0.5,
-    left: 60,
-    height: 350,
-  },
-  content: {
-    flex: 1,
-    padding: 20,
-    position: 'absolute',
-    width: '100%',
-    top: 120,
-  },
-  modal: {
-    borderRadius: 43,
-    elevation: 20,
-    borderWidth: 0.5,
-    borderColor: colors.E7E4F1,
-    width: '100%',
-    backgroundColor: colors.white,
-    padding: 20,
-    paddingTop: 50,
-    shadowColor: colors.DED6F4,
-    shadowOffset: {
-      width: 10,
-      height: 10,
-    },
-    shadowOpacity: 0.52,
-    shadowRadius: 5,
-  },
-  viewBtn: {
-    shadowColor: colors.DED6F4,
-    shadowOffset: {
-      width: 0,
-      height: 10,
-    },
-    shadowOpacity: 0.5,
-    shadowRadius: 2.22,
-    elevation: 5,
-    backgroundColor: colors.white,
-    borderRadius: 10,
-    borderWidth: 1,
-    borderColor: colors.EAEAF5,
-  },
-  tabLogin: {
-    width: '50%',
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: 45,
-    backgroundColor: colors.primary,
-    borderRadius: 10,
-  },
-  btnSignUp: {
-    width: '50%',
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: 45,
-    backgroundColor: colors.white,
-    borderRadius: 10,
-    overflow: 'hidden',
-  },
-  txtLogin: {
-    color: colors.white,
-  },
-  txtSignUp: {
-    color: colors.primary,
-    fontWeight: '600',
-  },
-  circle: {
-    borderRadius: 500,
-    backgroundColor: colors.F0805A,
-    height: 517,
-    width: 517,
-    position: 'absolute',
-    top: -180,
-    left: -60,
-    overflow: 'hidden',
-  },
-  inputContainer: {
-    marginTop: 40,
-  },
-  txtForgotPassword: {
-    textAlign: 'right',
-    marginRight: 10,
-    color: colors.A8A7A7,
-  },
-  btnLogin: {
-    shadowColor: colors.E4DDF6,
-    shadowOffset: {
-      width: 0,
-      height: 10,
-    },
-    shadowOpacity: 0.7,
-    shadowRadius: 2.22,
-    elevation: 5,
-    width: '100%',
-    height: 45,
-    backgroundColor: colors.primary,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: 23,
-    marginTop: 54,
-  },
-  txtLogIn: {
-    color: colors.white,
-    fontWeight: 'bold',
-    fontSize: 16,
-  },
-  txtOr: {
-    textAlign: 'center',
-    marginTop: 28,
-    color: colors.A8A7A7,
-  },
-  vGoogleFB: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: 17,
-  },
-  btnGoogle: {
-    width: 48,
-    height: 48,
-    borderRadius: 24,
-    borderColor: colors.EAEAF5,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderWidth: 1,
-    marginHorizontal: 10,
-  },
-  inputContainerStyle: {
-    borderColor: colors.EAEAF5,
-  },
-})
