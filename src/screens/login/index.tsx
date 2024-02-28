@@ -17,12 +17,20 @@ import {Icon, Input} from '@rneui/themed'
 import colors from '../../res/colors'
 import {useTranslation} from 'react-i18next'
 import styles from './styles'
+import Button from '../../components/Button'
+import {useForm} from 'react-hook-form'
+
+let render = 0
+
 const LoginScreen = () => {
   const [formType, setFormType] = useState('login')
-  const [form, setForm] = useState({
-    email: '',
-    password: '',
-    confirmPassword: '',
+  const [email, setEmail] = useState('')
+  const {clearErrors, control, formState, handleSubmit} = useForm({
+    defaultValues: {
+      email: '',
+      password: '',
+      confirmPassword: '',
+    },
   })
   const [secureTextEntryPassword, setSecureTextEntryPassword] = useState(false)
   const [secureTextEntryCfPassword, setSecureTextEntryCfPassword] =
@@ -36,6 +44,7 @@ const LoginScreen = () => {
   const setFormTypeSignUp = () => {
     setFormType('signup')
   }
+  render++
   const checkLogin = formType == 'login' ? colors.primary : colors.white
   return (
     <SafeAreaView style={commonStyles.container}>
@@ -65,7 +74,7 @@ const LoginScreen = () => {
                         formType == 'login' ? colors.white : colors.primary,
                     },
                   ]}>
-                  Log In
+                  {t('login')}
                 </Text>
               </Pressable>
               <Pressable
@@ -84,7 +93,7 @@ const LoginScreen = () => {
                       color: checkLogin,
                     },
                   ]}>
-                  Sign Up
+                  {t('signup')}
                 </Text>
               </Pressable>
             </View>
@@ -96,12 +105,10 @@ const LoginScreen = () => {
                 inputContainerStyle={styles.inputContainerStyle}
                 inputStyle={{fontSize: 16}}
                 keyboardType="email-address"
+                onChangeText={setEmail}
               />
               <Input
                 placeholder="Password"
-                onFocus={() => {
-                  setSecureTextEntryPassword(true)
-                }}
                 rightIcon={
                   <Icon
                     name={
@@ -123,7 +130,6 @@ const LoginScreen = () => {
               {formType == 'signup' ? (
                 <Input
                   placeholder="Confirm password"
-                  onFocus={() => setSecureTextEntryCfPassword(true)}
                   textContentType="oneTimeCode"
                   rightIcon={
                     <Icon
@@ -148,14 +154,15 @@ const LoginScreen = () => {
               ) : null}
               {formType == 'login' ? (
                 <Pressable>
-                  <Text style={styles.txtForgotPassword}>Forgot password?</Text>
+                  <Text style={styles.txtForgotPassword}>
+                    Forgot password? {render}
+                  </Text>
                 </Pressable>
               ) : null}
-              <TouchableOpacity style={styles.btnLogin}>
-                <Text style={styles.txtLogIn}>
-                  {formType == 'login' ? t('login') : t('signup')}
-                </Text>
-              </TouchableOpacity>
+              <Button
+                title={formType == 'login' ? t('login') : t('signup')}
+                buttonStyle={styles.mtBtn}
+              />
               <Text style={styles.txtOr}>OR</Text>
               <View style={styles.vGoogleFB}>
                 <Pressable style={styles.btnGoogle}>

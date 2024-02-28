@@ -9,11 +9,11 @@ const styles = StyleSheet.create({
       marginBottom: 200,
     },
     imagePraying: {
-      width: Dimensions.get('window').width,
+      width: Dimensions.get('window').width ,
       position: 'absolute',
       bottom: 50,
       opacity: 0.5,
-      left: 60,
+      left: 80,
       height: 350,
     },
     content: {
@@ -84,8 +84,8 @@ const styles = StyleSheet.create({
       height: 517,
       width: 517,
       position: 'absolute',
-      top: -180,
-      left: -60,
+      top: -200,
+      left: -80,
       overflow: 'hidden',
     },
     inputContainer: {
@@ -95,23 +95,6 @@ const styles = StyleSheet.create({
       textAlign: 'right',
       marginRight: 10,
       color: colors.A8A7A7,
-    },
-    btnLogin: {
-      shadowColor: colors.E4DDF6,
-      shadowOffset: {
-        width: 0,
-        height: 10,
-      },
-      shadowOpacity: 0.7,
-      shadowRadius: 2.22,
-      elevation: 5,
-      width: '100%',
-      height: 45,
-      backgroundColor: colors.primary,
-      justifyContent: 'center',
-      alignItems: 'center',
-      borderRadius: 23,
-      marginTop: 54,
     },
     txtLogIn: {
       color: colors.white,
@@ -142,5 +125,7 @@ const styles = StyleSheet.create({
     inputContainerStyle: {
       borderColor: colors.EAEAF5,
     },
+    mtBtn: {
+      marginTop: 54}
   })
   export default styles
