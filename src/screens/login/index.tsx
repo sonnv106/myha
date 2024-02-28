@@ -1,24 +1,21 @@
 import {
-  Dimensions,
   Image,
   Pressable,
   SafeAreaView,
-  ScrollView,
   StatusBar,
-  StyleSheet,
   Text,
-  TouchableOpacity,
   View,
 } from 'react-native'
 import React, {useState} from 'react'
 import commonStyles from '../../res/styles'
 import images from '../../res/images'
-import {Icon, Input} from '@rneui/themed'
+import {Icon} from '@rneui/themed'
 import colors from '../../res/colors'
 import {useTranslation} from 'react-i18next'
 import styles from './styles'
 import Button from '../../components/Button'
 import {useForm} from 'react-hook-form'
+import Input from '../../components/Input'
 
 let render = 0
 
@@ -99,57 +96,34 @@ const LoginScreen = () => {
             </View>
             <View style={styles.inputContainer}>
               <Input
+                name={'email'}
+                control={control}
                 placeholder="Email"
                 textContentType="oneTimeCode"
                 placeholderTextColor={colors.A8A7A7}
                 inputContainerStyle={styles.inputContainerStyle}
                 inputStyle={{fontSize: 16}}
                 keyboardType="email-address"
-                onChangeText={setEmail}
               />
               <Input
+                name="password"
+                isPassword
+                control={control}
                 placeholder="Password"
-                rightIcon={
-                  <Icon
-                    name={
-                      secureTextEntryPassword ? 'visibility' : 'visibility-off'
-                    }
-                    color={colors.C3C2C2}
-                    type="materialIcons"
-                    size={18}
-                    onPress={() => {
-                      setSecureTextEntryPassword(!secureTextEntryPassword)
-                    }}
-                  />
-                }
                 placeholderTextColor={colors.A8A7A7}
                 inputContainerStyle={styles.inputContainerStyle}
                 inputStyle={{fontSize: 16}}
-                secureTextEntry={secureTextEntryPassword}
               />
               {formType == 'signup' ? (
                 <Input
+                  name="confirmPassword"
+                  isPassword
+                  control={control}
                   placeholder="Confirm password"
                   textContentType="oneTimeCode"
-                  rightIcon={
-                    <Icon
-                      name={
-                        secureTextEntryCfPassword
-                          ? 'visibility'
-                          : 'visibility-off'
-                      }
-                      color={colors.C3C2C2}
-                      type="materialIcons"
-                      size={18}
-                      onPress={() => {
-                        setSecureTextEntryCfPassword(!secureTextEntryCfPassword)
-                      }}
-                    />
-                  }
                   placeholderTextColor={colors.A8A7A7}
                   inputContainerStyle={styles.inputContainerStyle}
                   inputStyle={{fontSize: 16}}
-                  secureTextEntry={secureTextEntryCfPassword}
                 />
               ) : null}
               {formType == 'login' ? (
