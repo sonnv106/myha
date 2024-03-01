@@ -1,4 +1,4 @@
-import {StyleSheet, Text, TextStyle, ViewStyle} from 'react-native'
+import {StyleSheet, Text, TextStyle, ViewStyle, View} from 'react-native'
 import React, {ReactNode, useState} from 'react'
 import {Input as RNEInput, InputProps, Icon} from '@rneui/themed'
 import {useController} from 'react-hook-form'
@@ -23,6 +23,8 @@ interface CustomInputProps extends InputProps {
   renderErrorMessage?: boolean
   isPassword?: boolean
   isEmail?: boolean
+  required?: boolean
+  boxLabelStyle?: ViewStyle
 }
 
 const Input = ({
@@ -30,6 +32,10 @@ const Input = ({
   control,
   rightIcon,
   isPassword,
+  label,
+  required,
+  boxLabelStyle,
+  labelStyle,
   ...props
 }: CustomInputProps) => {
   const [secureTextEntryPassword, setSecureTextEntryPassword] = useState(false)
@@ -59,6 +65,16 @@ const Input = ({
         )) ||
         rightIcon
       }
+      label={
+        label && (
+          <View style={[styles.boxLabel, boxLabelStyle]}>
+            <Text style={[labelStyle]}>
+              {label}
+              {required && <Text style={{color: colors.red}}> *</Text>}
+            </Text>
+          </View>
+        )
+      }
       secureTextEntry={isPassword && !secureTextEntryPassword}
       {...props}
     />
@@ -67,4 +83,10 @@ const Input = ({
 
 export default Input
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+  boxLabel: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+})

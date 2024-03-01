@@ -1,5 +1,6 @@
 import {
   Image,
+  Platform,
   Pressable,
   SafeAreaView,
   StatusBar,
@@ -16,30 +17,46 @@ import styles from './styles'
 import Button from '../../components/Button'
 import {useForm} from 'react-hook-form'
 import Input from '../../components/Input'
-
+import {
+  AccessToken,
+  AuthenticationToken,
+  LoginButton,
+} from 'react-native-fbsdk-next'
+import onFacebookButtonPress from '../../utils/loginFacbook'
 let render = 0
+
+interface FormData {
+  email: string
+  password: string
+  confirmPassword?: string
+}
 
 const LoginScreen = () => {
   const [formType, setFormType] = useState('login')
-  const [email, setEmail] = useState('')
-  const {clearErrors, control, formState, handleSubmit} = useForm({
+  const {control, handleSubmit, reset} = useForm<FormData>({
     defaultValues: {
       email: '',
       password: '',
       confirmPassword: '',
     },
   })
-  const [secureTextEntryPassword, setSecureTextEntryPassword] = useState(false)
-  const [secureTextEntryCfPassword, setSecureTextEntryCfPassword] =
-    useState(false)
-
   const {t} = useTranslation()
 
   const setFormTypeLogin = () => {
-    setFormType('login')
+    if (formType !== 'login') {
+      setFormType('login')
+      reset()
+    }
   }
   const setFormTypeSignUp = () => {
-    setFormType('signup')
+    if (formType !== 'signup') {
+      setFormType('signup')
+      reset()
+    }
+  }
+  const onSubmit = (data: FormData) => {
+    formType == 'login' ? delete data.confirmPassword : data
+    console.log(data)
   }
   render++
   const checkLogin = formType == 'login' ? colors.primary : colors.white
@@ -136,13 +153,20 @@ const LoginScreen = () => {
               <Button
                 title={formType == 'login' ? t('login') : t('signup')}
                 buttonStyle={styles.mtBtn}
+                onPress={handleSubmit(onSubmit)}
               />
               <Text style={styles.txtOr}>OR</Text>
               <View style={styles.vGoogleFB}>
                 <Pressable style={styles.btnGoogle}>
                   <Image source={images.icGoogle} />
                 </Pressable>
-                <Pressable style={styles.btnGoogle}>
+                <Pressable
+                  style={styles.btnGoogle}
+                  onPress={() =>
+                    onFacebookButtonPress().then(() => {
+                      console.log('Sign in with Facebook')
+                    })
+                  }>
                   <Image source={images.icFacebook} />
                 </Pressable>
               </View>

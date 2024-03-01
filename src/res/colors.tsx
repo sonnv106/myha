@@ -1,6 +1,7 @@
 const colors = {
   primary: '#FE7940',
   white: '#FFFFFF',
+  red: 'red',
   FE7940: '#FE7940',
   EAEAF5: '#EAEAF5',
   C3C2C2: '#C3C2C2',

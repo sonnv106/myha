@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">myha</string>
+    <string name="facebook_app_id">825803189356202</string>
+    <string name="fb_login_protocol_scheme">fb825803189356202</string>
+    <string name="facebook_client_token">05173d93207474b65f43f0fc9688b285</string>
 </resources>
