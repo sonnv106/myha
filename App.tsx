@@ -28,6 +28,7 @@ function App(): React.JSX.Element {
 
     return unsubscribe
   }, [])
+  useEffect(() => {}, [])
   return (
     <Provider store={store}>
       <PersistGate persistor={persistor} loading={null}>

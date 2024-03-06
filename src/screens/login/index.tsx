@@ -22,7 +22,7 @@ import {
   AuthenticationToken,
   LoginButton,
 } from 'react-native-fbsdk-next'
-import onFacebookButtonPress from '../../utils/loginFacbook'
+import onFacebookButtonPress from './LoginManager'
 let render = 0
 
 interface FormData {
@@ -61,121 +61,117 @@ const LoginScreen = () => {
   render++
   const checkLogin = formType == 'login' ? colors.primary : colors.white
   return (
-    <SafeAreaView style={commonStyles.container}>
-      <StatusBar translucent />
-      {/* <ScrollView> */}
-
-      <View style={[commonStyles.container, styles.container]}>
-        <View style={styles.circle}>
-          <Image source={images.praying} style={styles.imagePraying} />
-        </View>
-        <View style={styles.content}>
-          <View style={styles.modal}>
-            <View style={[commonStyles.row, styles.viewBtn]}>
-              <Pressable
+    // <SafeAreaView style={commonStyles.container}>
+    <View style={[commonStyles.container, styles.container]}>
+      {/* <StatusBar translucent /> */}
+      <View style={styles.circle}>
+        <Image source={images.praying} style={styles.imagePraying} />
+      </View>
+      <View style={styles.content}>
+        <View style={styles.modal}>
+          <View style={[commonStyles.row, styles.viewBtn]}>
+            <Pressable
+              style={[
+                styles.tabLogin,
+                {
+                  backgroundColor: checkLogin,
+                },
+              ]}
+              onPress={setFormTypeLogin}>
+              <Text
                 style={[
-                  styles.tabLogin,
+                  styles.txtLogin,
                   {
-                    backgroundColor: checkLogin,
+                    color: formType == 'login' ? colors.white : colors.primary,
                   },
-                ]}
-                onPress={setFormTypeLogin}>
-                <Text
-                  style={[
-                    styles.txtLogin,
-                    {
-                      color:
-                        formType == 'login' ? colors.white : colors.primary,
-                    },
-                  ]}>
-                  {t('login')}
-                </Text>
-              </Pressable>
-              <Pressable
+                ]}>
+                {t('login')}
+              </Text>
+            </Pressable>
+            <Pressable
+              style={[
+                styles.btnSignUp,
+                {
+                  backgroundColor:
+                    formType == 'signup' ? colors.primary : colors.white,
+                },
+              ]}
+              onPress={setFormTypeSignUp}>
+              <Text
                 style={[
-                  styles.btnSignUp,
+                  styles.txtSignUp,
                   {
-                    backgroundColor:
-                      formType == 'signup' ? colors.primary : colors.white,
+                    color: checkLogin,
                   },
-                ]}
-                onPress={setFormTypeSignUp}>
-                <Text
-                  style={[
-                    styles.txtSignUp,
-                    {
-                      color: checkLogin,
-                    },
-                  ]}>
-                  {t('signup')}
-                </Text>
-              </Pressable>
-            </View>
-            <View style={styles.inputContainer}>
+                ]}>
+                {t('signup')}
+              </Text>
+            </Pressable>
+          </View>
+          <View style={styles.inputContainer}>
+            <Input
+              name={'email'}
+              control={control}
+              placeholder="Email"
+              textContentType="oneTimeCode"
+              placeholderTextColor={colors.A8A7A7}
+              inputContainerStyle={styles.inputContainerStyle}
+              inputStyle={{fontSize: 16}}
+              keyboardType="email-address"
+            />
+            <Input
+              name="password"
+              isPassword
+              control={control}
+              placeholder="Password"
+              placeholderTextColor={colors.A8A7A7}
+              inputContainerStyle={styles.inputContainerStyle}
+              inputStyle={{fontSize: 16}}
+            />
+            {formType == 'signup' ? (
               <Input
-                name={'email'}
+                name="confirmPassword"
+                isPassword
                 control={control}
-                placeholder="Email"
+                placeholder="Confirm password"
                 textContentType="oneTimeCode"
                 placeholderTextColor={colors.A8A7A7}
                 inputContainerStyle={styles.inputContainerStyle}
                 inputStyle={{fontSize: 16}}
-                keyboardType="email-address"
               />
-              <Input
-                name="password"
-                isPassword
-                control={control}
-                placeholder="Password"
-                placeholderTextColor={colors.A8A7A7}
-                inputContainerStyle={styles.inputContainerStyle}
-                inputStyle={{fontSize: 16}}
-              />
-              {formType == 'signup' ? (
-                <Input
-                  name="confirmPassword"
-                  isPassword
-                  control={control}
-                  placeholder="Confirm password"
-                  textContentType="oneTimeCode"
-                  placeholderTextColor={colors.A8A7A7}
-                  inputContainerStyle={styles.inputContainerStyle}
-                  inputStyle={{fontSize: 16}}
-                />
-              ) : null}
-              {formType == 'login' ? (
-                <Pressable>
-                  <Text style={styles.txtForgotPassword}>
-                    Forgot password? {render}
-                  </Text>
-                </Pressable>
-              ) : null}
-              <Button
-                title={formType == 'login' ? t('login') : t('signup')}
-                buttonStyle={styles.mtBtn}
-                onPress={handleSubmit(onSubmit)}
-              />
-              <Text style={styles.txtOr}>OR</Text>
-              <View style={styles.vGoogleFB}>
-                <Pressable style={styles.btnGoogle}>
-                  <Image source={images.icGoogle} />
-                </Pressable>
-                <Pressable
-                  style={styles.btnGoogle}
-                  onPress={() =>
-                    onFacebookButtonPress().then(() => {
-                      console.log('Sign in with Facebook')
-                    })
-                  }>
-                  <Image source={images.icFacebook} />
-                </Pressable>
-              </View>
+            ) : null}
+            {formType == 'login' ? (
+              <Pressable>
+                <Text style={styles.txtForgotPassword}>
+                  Forgot password? {render}
+                </Text>
+              </Pressable>
+            ) : null}
+            <Button
+              title={formType == 'login' ? t('login') : t('signup')}
+              buttonStyle={styles.mtBtn}
+              onPress={handleSubmit(onSubmit)}
+            />
+            <Text style={styles.txtOr}>OR</Text>
+            <View style={styles.vGoogleFB}>
+              <Pressable style={styles.btnGoogle}>
+                <Image source={images.icGoogle} />
+              </Pressable>
+              <Pressable
+                style={styles.btnGoogle}
+                onPress={() =>
+                  onFacebookButtonPress().then(() =>
+                    console.log('Signed in with Facebook!'),
+                  )
+                }>
+                <Image source={images.icFacebook} />
+              </Pressable>
             </View>
           </View>
         </View>
       </View>
-      {/* </ScrollView> */}
-    </SafeAreaView>
+    </View>
+    // </SafeAreaView>
   )
 }
 

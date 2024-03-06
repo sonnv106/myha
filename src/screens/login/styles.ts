@@ -7,6 +7,7 @@ const styles = StyleSheet.create({
       position: 'relative',
       paddingBottom: 200,
       marginBottom: 200,
+      // backgroundColor: 'red'
     },
     imagePraying: {
       width: Dimensions.get('window').width ,
