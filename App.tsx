@@ -8,6 +8,8 @@ import RootNavigator from './src/navigation'
 import Toast from 'react-native-toast-message'
 import {PersistGate} from 'redux-persist/integration/react'
 import './i18n.config'
+import {Settings} from 'react-native-fbsdk-next'
+// import {Settings} from 'react-native-fbsdk-next'
 function App(): React.JSX.Element {
   const requestUserPermission = async () => {
     const authStatus = await messaging().requestPermission()
@@ -28,7 +30,15 @@ function App(): React.JSX.Element {
 
     return unsubscribe
   }, [])
-  useEffect(() => {}, [])
+
+  // Setting the facebook app id using setAppID
+  // Remember to set CFBundleURLSchemes in Info.plist on iOS if needed
+
+  useEffect(() => {
+    Settings.initializeSDK()
+    Settings.setAppID('825803189356202')
+    Settings.setAdvertiserTrackingEnabled(true)
+  }, [])
   return (
     <Provider store={store}>
       <PersistGate persistor={persistor} loading={null}>

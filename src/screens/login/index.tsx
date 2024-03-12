@@ -17,11 +17,11 @@ import styles from './styles'
 import Button from '../../components/Button'
 import {useForm} from 'react-hook-form'
 import Input from '../../components/Input'
-import {
-  AccessToken,
-  AuthenticationToken,
-  LoginButton,
-} from 'react-native-fbsdk-next'
+// import {
+//   AccessToken,
+//   AuthenticationToken,
+//   LoginButton,
+// } from 'react-native-fbsdk-next'
 import onFacebookButtonPress from './LoginManager'
 let render = 0
 
