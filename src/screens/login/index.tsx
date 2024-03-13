@@ -7,7 +7,7 @@ import {
   Text,
   View,
 } from 'react-native'
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import commonStyles from '../../res/styles'
 import images from '../../res/images'
 import {Icon} from '@rneui/themed'
@@ -23,6 +23,8 @@ import Input from '../../components/Input'
 //   LoginButton,
 // } from 'react-native-fbsdk-next'
 import onFacebookButtonPress from './LoginManager'
+import {GoogleSignin} from '@react-native-google-signin/google-signin'
+import {onGoogleButtonPress} from './LoginController'
 let render = 0
 
 interface FormData {
@@ -41,6 +43,13 @@ const LoginScreen = () => {
     },
   })
   const {t} = useTranslation()
+
+  useEffect(() => {
+    GoogleSignin.configure({
+      webClientId:
+        '1096030835912-t2d21llcgerp9dhacr9ms1h1uc46d1tl.apps.googleusercontent.com',
+    })
+  }, [])
 
   const setFormTypeLogin = () => {
     if (formType !== 'login') {
@@ -154,7 +163,13 @@ const LoginScreen = () => {
             />
             <Text style={styles.txtOr}>OR</Text>
             <View style={styles.vGoogleFB}>
-              <Pressable style={styles.btnGoogle}>
+              <Pressable
+                style={styles.btnGoogle}
+                onPress={() =>
+                  onGoogleButtonPress().then(() =>
+                    console.log('Signed in with Google!'),
+                  )
+                }>
                 <Image source={images.icGoogle} />
               </Pressable>
               <Pressable

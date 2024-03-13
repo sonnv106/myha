@@ -6,6 +6,7 @@
 #import <FBSDKCoreKit/FBSDKCoreKit-Swift.h>
 #import <Firebase.h>
 #import <React/RCTLinkingManager.h>
+#import <GoogleSignIn/GoogleSignIn.h>
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -32,7 +33,7 @@
     return YES;
   }
 
-  return NO;
+  return [[FBSDKApplicationDelegate sharedInstance] application:app openURL:url options:options] || [GIDSignIn.sharedInstance handleURL:url];
 }
 
 

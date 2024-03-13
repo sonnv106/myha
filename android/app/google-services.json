@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "1096030835912",
+    "firebase_url": "https://giaoxumyha-default-rtdb.asia-southeast1.firebasedatabase.app",
     "project_id": "giaoxumyha",
     "storage_bucket": "giaoxumyha.appspot.com"
   },
@@ -12,7 +13,24 @@
           "package_name": "com.myha"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "1096030835912-bu030ii8flgt5oarpsjgidtlpljmci0j.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.myha",
+            "certificate_hash": "e67ae8ddd7c3a4abe8015894e171ab6ba7db01b3"
+          }
+        },
+        {
+          "client_id": "1096030835912-jrldi4cekikehfrqbg6mak3j86p8pbnp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.myha",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyCFtUP7xArXcRuzW-FEVIYj4kc5W87A9wU"
@@ -20,7 +38,15 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1096030835912-ifql6gr1ssi2l1kpdedvdfk2q05i2kns.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "org.reactjs.native.example.myha"
+              }
+            }
+          ]
         }
       }
     }

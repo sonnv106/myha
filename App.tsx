@@ -35,8 +35,8 @@ function App(): React.JSX.Element {
   // Remember to set CFBundleURLSchemes in Info.plist on iOS if needed
 
   useEffect(() => {
-    Settings.initializeSDK()
-    Settings.setAppID('825803189356202')
+    // Settings.initializeSDK()
+    // Settings.setAppID('825803189356202')
     Settings.setAdvertiserTrackingEnabled(true)
   }, [])
   return (
