@@ -15,7 +15,7 @@
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		E70C51FA2BA006EF00CF6909 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70C51F92BA006EF00CF6909 /* File.swift */; };
 		E75E63532B88FD35007AC2CF /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E75E63522B88FD35007AC2CF /* MaterialIcons.ttf */; };
-		E7FBE4312B4FE8840002364D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E7FBE4302B4FE8840002364D /* GoogleService-Info.plist */; };
+		E7B720D22BA204EF003A5F71 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E7B720D12BA204EF003A5F71 /* GoogleService-Info.plist */; };
 		F0358AEF2B8E2AC2B614C9C7 /* Pods_myha.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C911EE85B8C858154213AAB3 /* Pods_myha.framework */; };
 /* End PBXBuildFile section */
 
@@ -50,7 +50,7 @@
 		E70C51FF2BA00C0900CF6909 /* FBSDKShareKit.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = FBSDKShareKit.xcframework; path = Pods/FBSDKShareKit/XCFrameworks/FBSDKShareKit.xcframework; sourceTree = "<group>"; };
 		E71B0DAB2B54DB3500EFD8C0 /* myha.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = myha.entitlements; path = myha/myha.entitlements; sourceTree = "<group>"; };
 		E75E63522B88FD35007AC2CF /* MaterialIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
-		E7FBE4302B4FE8840002364D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		E7B720D12BA204EF003A5F71 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		F1088EA85030EBC442ED370E /* Pods_myha_myhaTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_myha_myhaTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F7E56184D44683DDFBE6E77F /* Pods-myha-myhaTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-myha-myhaTests.debug.xcconfig"; path = "Target Support Files/Pods-myha-myhaTests/Pods-myha-myhaTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -132,7 +132,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
-				E7FBE4302B4FE8840002364D /* GoogleService-Info.plist */,
+				E7B720D12BA204EF003A5F71 /* GoogleService-Info.plist */,
 				13B07FAE1A68108700A75B9A /* myha */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* myhaTests */,
@@ -268,9 +268,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				E75E63532B88FD35007AC2CF /* MaterialIcons.ttf in Resources */,
+				E7B720D22BA204EF003A5F71 /* GoogleService-Info.plist in Resources */,
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
-				E7FBE4312B4FE8840002364D /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -514,6 +514,7 @@
 				DEVELOPMENT_TEAM = KJ96R4V8NQ;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = myha/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -526,6 +527,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = myha;
+				SWIFT_INCLUDE_PATHS = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "myha-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -543,6 +545,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = KJ96R4V8NQ;
 				INFOPLIST_FILE = myha/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -555,6 +558,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = myha;
+				SWIFT_INCLUDE_PATHS = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "myha-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -642,10 +646,7 @@
 					"-DFOLLY_USE_LIBCPP=1",
 					"-DFOLLY_CFG_NO_COROUTINES=1",
 				);
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					" ",
-				);
+				OTHER_LDFLAGS = "$(inherited)  ";
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
 				USE_HERMES = true;
@@ -725,10 +726,7 @@
 					"-DFOLLY_USE_LIBCPP=1",
 					"-DFOLLY_CFG_NO_COROUTINES=1",
 				);
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					" ",
-				);
+				OTHER_LDFLAGS = "$(inherited)  ";
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
