@@ -17,15 +17,15 @@ import styles from './styles'
 import Button from '../../components/Button'
 import {useForm} from 'react-hook-form'
 import Input from '../../components/Input'
+import auth from '@react-native-firebase/auth'
 // import {
 //   AccessToken,
 //   AuthenticationToken,
 //   LoginButton,
 // } from 'react-native-fbsdk-next'
-import onFacebookButtonPress from './LoginManager'
+import {onFacebookButtonPress, onGoogleButtonPress} from './LoginManager'
 import {GoogleSignin} from '@react-native-google-signin/google-signin'
-import {onGoogleButtonPress} from './LoginController'
-let render = 0
+import {useDispatch} from 'react-redux'
 
 interface FormData {
   email: string
@@ -35,6 +35,7 @@ interface FormData {
 
 const LoginScreen = () => {
   const [formType, setFormType] = useState('login')
+
   const {control, handleSubmit, reset} = useForm<FormData>({
     defaultValues: {
       email: '',
@@ -42,8 +43,16 @@ const LoginScreen = () => {
       confirmPassword: '',
     },
   })
+  const dispatch = useDispatch()
   const {t} = useTranslation()
-
+  useEffect(() => {
+    const unsubscribe = auth().onAuthStateChanged(user => {
+      if (user) {
+      } else {
+      }
+    })
+    return unsubscribe
+  }, [])
   useEffect(() => {
     GoogleSignin.configure({
       webClientId:
@@ -67,8 +76,10 @@ const LoginScreen = () => {
     formType == 'login' ? delete data.confirmPassword : data
     console.log(data)
   }
-  render++
   const checkLogin = formType == 'login' ? colors.primary : colors.white
+  const loginGoogle = () => {
+    onGoogleButtonPress().then(rs => console.log('Signed in with Google!', rs))
+  }
   return (
     // <SafeAreaView style={commonStyles.container}>
     <View style={[commonStyles.container, styles.container]}>
@@ -151,9 +162,7 @@ const LoginScreen = () => {
             ) : null}
             {formType == 'login' ? (
               <Pressable>
-                <Text style={styles.txtForgotPassword}>
-                  Forgot password? {render}
-                </Text>
+                <Text style={styles.txtForgotPassword}>Forgot password?</Text>
               </Pressable>
             ) : null}
             <Button
@@ -163,20 +172,14 @@ const LoginScreen = () => {
             />
             <Text style={styles.txtOr}>OR</Text>
             <View style={styles.vGoogleFB}>
-              <Pressable
-                style={styles.btnGoogle}
-                onPress={() =>
-                  onGoogleButtonPress().then(() =>
-                    console.log('Signed in with Google!'),
-                  )
-                }>
+              <Pressable style={styles.btnGoogle} onPress={loginGoogle}>
                 <Image source={images.icGoogle} />
               </Pressable>
               <Pressable
                 style={styles.btnGoogle}
                 onPress={() =>
-                  onFacebookButtonPress().then(() =>
-                    console.log('Signed in with Facebook!'),
+                  onFacebookButtonPress().then(rs =>
+                    console.log('Signed in with Facebook!', rs),
                   )
                 }>
                 <Image source={images.icFacebook} />

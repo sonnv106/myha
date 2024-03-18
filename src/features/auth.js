@@ -12,8 +12,8 @@ const authSlice = createSlice({
     name: 'auth',
     initialState: {
         loading: false,
-        token: '',
-        error: ''
+        error: '',
+        user: null
     },
     reducers: {
         logout: (state, action)=>{
@@ -26,12 +26,11 @@ const authSlice = createSlice({
         })
         builder.addCase(login.fulfilled, (state, action)=>{
             state.loading = false,
-            state.token = action.payload,
+            state.user = action.payload,
             state.error = ''
         })
         builder.addCase(login.rejected, (state, action)=>{
             state.loading = false,
-            state.token = '',
             state.error = action.payload
         })
         
