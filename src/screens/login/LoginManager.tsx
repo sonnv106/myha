@@ -32,7 +32,6 @@ const onGoogleButtonPress = async () => {
   try {
     await GoogleSignin.hasPlayServices()
     const userInfo = await GoogleSignin.signIn()
-    console.log('user info', userInfo)
     // Create a Google credential with the token
     const googleCredential = auth.GoogleAuthProvider.credential(
       userInfo.idToken || userInfo.serverAuthCode || userInfo.user.id,

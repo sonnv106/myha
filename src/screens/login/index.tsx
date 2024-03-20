@@ -18,14 +18,14 @@ import Button from '../../components/Button'
 import {useForm} from 'react-hook-form'
 import Input from '../../components/Input'
 import auth from '@react-native-firebase/auth'
-// import {
-//   AccessToken,
-//   AuthenticationToken,
-//   LoginButton,
-// } from 'react-native-fbsdk-next'
+import {authSelector, loginGoogle} from '../../features'
 import {onFacebookButtonPress, onGoogleButtonPress} from './LoginManager'
 import {GoogleSignin} from '@react-native-google-signin/google-signin'
-import {useDispatch} from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
+import {dispatchThunk, showToast} from '../../utils'
+import {useNavigation} from '@react-navigation/native'
+import SCREENS from '../../constants/screens'
+import {NativeStackNavigationProp} from '@react-navigation/native-stack'
 
 interface FormData {
   email: string
@@ -35,7 +35,8 @@ interface FormData {
 
 const LoginScreen = () => {
   const [formType, setFormType] = useState('login')
-
+  const state = useSelector(authSelector)
+  const {navigate} = useNavigation<NativeStackNavigationProp<any>>()
   const {control, handleSubmit, reset} = useForm<FormData>({
     defaultValues: {
       email: '',
@@ -77,8 +78,17 @@ const LoginScreen = () => {
     console.log(data)
   }
   const checkLogin = formType == 'login' ? colors.primary : colors.white
-  const loginGoogle = () => {
-    onGoogleButtonPress().then(rs => console.log('Signed in with Google!', rs))
+  const loginWithGoogle = () => {
+    dispatchThunk(
+      dispatch,
+      loginGoogle(),
+      () => {
+        navigate(SCREENS.BOTTOM_NAVIGATOR)
+      },
+      () => {
+        showToast('error', 'Có lỗi xảy ra, vui lòng thử lại sau')
+      },
+    )
   }
   return (
     // <SafeAreaView style={commonStyles.container}>
@@ -172,7 +182,7 @@ const LoginScreen = () => {
             />
             <Text style={styles.txtOr}>OR</Text>
             <View style={styles.vGoogleFB}>
-              <Pressable style={styles.btnGoogle} onPress={loginGoogle}>
+              <Pressable style={styles.btnGoogle} onPress={loginWithGoogle}>
                 <Image source={images.icGoogle} />
               </Pressable>
               <Pressable
