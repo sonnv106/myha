@@ -73,9 +73,27 @@ const LoginScreen = () => {
       reset()
     }
   }
-  const onSubmit = (data: FormData) => {
+  const onSubmit = async (data: FormData) => {
     formType == 'login' ? delete data.confirmPassword : data
-    console.log(data)
+    if (formType == 'signup') {
+      const userCredential = await auth().createUserWithEmailAndPassword(
+        data.email,
+        data.password,
+      )
+      // userCredential.user.sendEmailVerification()
+    }
+    if (formType == 'login') {
+      const user = await auth().signInWithEmailAndPassword(
+        data.email,
+        data.password,
+      )
+      if (user) {
+        console.log('user login', user)
+        navigate(SCREENS.BOTTOM_NAVIGATOR)
+      } else {
+        return
+      }
+    }
   }
   const checkLogin = formType == 'login' ? colors.primary : colors.white
   const loginWithGoogle = () => {
@@ -90,6 +108,7 @@ const LoginScreen = () => {
       },
     )
   }
+  const handleSignUpWithEmail = async (email: string, password: string) => {}
   return (
     // <SafeAreaView style={commonStyles.container}>
     <View style={[commonStyles.container, styles.container]}>
