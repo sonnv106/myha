@@ -18,7 +18,7 @@ import Button from '../../components/Button'
 import {useForm} from 'react-hook-form'
 import Input from '../../components/Input'
 import auth from '@react-native-firebase/auth'
-import {authSelector, loginGoogle} from '../../features'
+import {authSelector, autoSignIn, loginGoogle} from '../../features'
 import {onFacebookButtonPress, onGoogleButtonPress} from './LoginManager'
 import {GoogleSignin} from '@react-native-google-signin/google-signin'
 import {useDispatch, useSelector} from 'react-redux'
@@ -46,13 +46,11 @@ const LoginScreen = () => {
   })
   const dispatch = useDispatch()
   const {t} = useTranslation()
+
   useEffect(() => {
-    const unsubscribe = auth().onAuthStateChanged(user => {
-      if (user) {
-      } else {
-      }
+    dispatchThunk(dispatch, autoSignIn(), res => {
+      console.log('ressss', res)
     })
-    return unsubscribe
   }, [])
   useEffect(() => {
     GoogleSignin.configure({
@@ -80,7 +78,9 @@ const LoginScreen = () => {
         data.email,
         data.password,
       )
-      // userCredential.user.sendEmailVerification()
+
+      userCredential.user.sendEmailVerification()
+      console.log('userCredential', userCredential)
     }
     if (formType == 'login') {
       const user = await auth().signInWithEmailAndPassword(

@@ -5,6 +5,7 @@ import SCREENS from '../../constants/screens'
 
 const Splash = () => {
   const {navigate}: NavigationProp<any, any> = useNavigation()
+
   useEffect(() => {
     const timeout = setTimeout(() => {
       navigate(SCREENS.LOGIN)

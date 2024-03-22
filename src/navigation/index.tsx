@@ -1,11 +1,10 @@
-import {View, Text} from 'react-native'
-import React from 'react'
+import React, {useEffect} from 'react'
 import {createNativeStackNavigator} from '@react-navigation/native-stack'
 import SCREENS from '../constants/screens'
 import Splash from '../screens/splash'
 import BottomTabNavigator from './BottomTabNavigator'
 import Login from '../screens/login'
-
+import auth from '@react-native-firebase/auth'
 const {Navigator, Group, Screen} = createNativeStackNavigator()
 
 const RootNavigator = () => {
