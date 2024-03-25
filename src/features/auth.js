@@ -4,28 +4,17 @@ import { autoLogIn } from '../api';
 
 export const authSelector = state => state.auth
 
-export const loginGoogle = createAsyncThunk(
-    'loginGoogle', 
-    async (_, {fulfillWithValue, rejectWithValue}) => {
-    try {
-        const response = await onGoogleButtonPress()
-        return fulfillWithValue(response)
-    } catch (error) {
-        return rejectWithValue(error)
-    } 
-});
+// export const createUser = createAsyncThunk(
+//     'createUser', 
+//     async (_, {fulfillWithValue, rejectWithValue}) => {
+//     try {
+//         const response = await onGoogleButtonPress()
+//         return fulfillWithValue(response)
+//     } catch (error) {
+//         return rejectWithValue(error)
+//     } 
+// });
 
-export const autoSignIn = createAsyncThunk(
-    'autoSignIn',
-    async (_, {fulfillWithValue, rejectWithValue}) => {
-        try {
-            const response = await autoLogIn()
-            console.log('auto sign in', response)
-            return fulfillWithValue(response)
-        } catch (error) {
-            return rejectWithValue(error)
-        } 
-})
 
 const authSlice = createSlice({
     name: 'auth',
@@ -35,33 +24,38 @@ const authSlice = createSlice({
         user: null
     },
     reducers: {
+            autoLoginPending(state) {
+            state.loading = true
+        },
+            autoLoginFulfilled(state, action) {
+            state.loading = false
+            state.error = ''
+            state.user = action.payload
+        },
+            autoLoginRejected(state) {
+            console.log('reject', state);
+            
+            state.loading = false
+            state.user = null
+        },
+
+        createUserLoading(state){
+            state.loading = true
+        },
+        createUserSuccess(state, action) {
+            state.loading = false
+            state.error = ''
+            state.user = action.payload
+        },
+        createUserFailed(state){
+            state.loading = false
+            state.user = null
+        }
     },
     extraReducers: (builder) => {
-        builder.addCase(loginGoogle.pending, (state)=>{
-            state.loading = true
-        })
-        builder.addCase(loginGoogle.fulfilled, (state, action)=>{
-            state.loading = false,
-            state.user = action.payload,
-            state.error = ''
-        })
-        builder.addCase(loginGoogle.rejected, (state, action)=>{
-            state.loading = false,
-            state.error = action.payload
-        })
-        
-        builder.addCase(autoSignIn.pending, (state)=>{
-            state.loading = true
-        })
-        builder.addCase(autoSignIn.fulfilled, (state, action)=>{
-            state.loading = false,
-            state.user = action.payload,
-            state.error = ''
-        })
-        builder.addCase(autoSignIn.rejected, (state, action)=>{
-            state.loading = false,
-            state.error = action.payload
-        })
+        // builder.addCase(createUser.)
     }
 })
 export const authReducer = authSlice.reducer;
+export const {createUserSuccess, createUserFailed, createUserLoading,
+autoLoginPending, autoLoginFulfilled, autoLoginRejected} = authSlice.actions

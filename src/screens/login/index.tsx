@@ -1,4 +1,5 @@
 import {
+  ActivityIndicator,
   Image,
   Platform,
   Pressable,
@@ -26,6 +27,7 @@ import {dispatchThunk, showToast} from '../../utils'
 import {useNavigation} from '@react-navigation/native'
 import SCREENS from '../../constants/screens'
 import {NativeStackNavigationProp} from '@react-navigation/native-stack'
+import {IRootState} from '../../redux'
 
 interface FormData {
   email: string
@@ -36,6 +38,7 @@ interface FormData {
 const LoginScreen = () => {
   const [formType, setFormType] = useState('login')
   const state = useSelector(authSelector)
+  const authState = useSelector<IRootState>(state => state.auth)
   const {navigate} = useNavigation<NativeStackNavigationProp<any>>()
   const {control, handleSubmit, reset} = useForm<FormData>({
     defaultValues: {
@@ -46,12 +49,6 @@ const LoginScreen = () => {
   })
   const dispatch = useDispatch()
   const {t} = useTranslation()
-
-  useEffect(() => {
-    dispatchThunk(dispatch, autoSignIn(), res => {
-      console.log('ressss', res)
-    })
-  }, [])
   useEffect(() => {
     GoogleSignin.configure({
       webClientId:
@@ -96,19 +93,14 @@ const LoginScreen = () => {
     }
   }
   const checkLogin = formType == 'login' ? colors.primary : colors.white
+
   const loginWithGoogle = () => {
-    dispatchThunk(
-      dispatch,
-      loginGoogle(),
-      () => {
-        navigate(SCREENS.BOTTOM_NAVIGATOR)
-      },
-      () => {
-        showToast('error', 'Có lỗi xảy ra, vui lòng thử lại sau')
-      },
-    )
+    onGoogleButtonPress()
   }
-  const handleSignUpWithEmail = async (email: string, password: string) => {}
+  const signInWithFacebook = () => {
+    onFacebookButtonPress()
+  }
+
   return (
     // <SafeAreaView style={commonStyles.container}>
     <View style={[commonStyles.container, styles.container]}>
@@ -204,13 +196,7 @@ const LoginScreen = () => {
               <Pressable style={styles.btnGoogle} onPress={loginWithGoogle}>
                 <Image source={images.icGoogle} />
               </Pressable>
-              <Pressable
-                style={styles.btnGoogle}
-                onPress={() =>
-                  onFacebookButtonPress().then(rs =>
-                    console.log('Signed in with Facebook!', rs),
-                  )
-                }>
+              <Pressable style={styles.btnGoogle} onPress={signInWithFacebook}>
                 <Image source={images.icFacebook} />
               </Pressable>
             </View>

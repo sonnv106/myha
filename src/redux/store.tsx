@@ -10,22 +10,23 @@ import {
   REGISTER,
 } from 'redux-persist'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import { authReducer } from '../features'
+import {authReducer} from '../features'
 const persistConfig = {
   key: 'root',
   version: 1,
   storage: AsyncStorage,
-  whitelist: ['auth']
+  whitelist: ['auth'],
 }
 const rootReducer = combineReducers({
-  auth: authReducer
+  auth: authReducer,
 })
 const persistedReducer = persistReducer(persistConfig, rootReducer)
 export const store = configureStore({
   reducer: persistedReducer,
-  middleware: (getDefaultMiddleware) =>
-  getDefaultMiddleware({
-    serializableCheck: false,
-  }),
+  middleware: getDefaultMiddleware =>
+    getDefaultMiddleware({
+      serializableCheck: false,
+    }),
 })
 export const persistor = persistStore(store)
+export type IRootState = ReturnType<typeof rootReducer>

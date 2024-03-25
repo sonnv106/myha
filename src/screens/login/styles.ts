@@ -5,9 +5,7 @@ const styles = StyleSheet.create({
     container: {
       flex: 1,
       position: 'relative',
-      paddingBottom: 200,
-      marginBottom: 200,
-      // backgroundColor: 'red'
+      paddingBottom: 200
     },
     imagePraying: {
       width: Dimensions.get('window').width ,
