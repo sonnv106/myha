@@ -75,20 +75,26 @@ const LoginScreen = () => {
         data.email,
         data.password,
       )
-
       userCredential.user.sendEmailVerification()
-      console.log('userCredential', userCredential)
     }
     if (formType == 'login') {
-      const user = await auth().signInWithEmailAndPassword(
-        data.email,
-        data.password,
-      )
-      if (user) {
-        console.log('user login', user)
-        navigate(SCREENS.BOTTOM_NAVIGATOR)
-      } else {
-        return
+      try {
+        const user = await auth().signInWithEmailAndPassword(
+          data.email,
+          data.password,
+        )
+        if (user && user.user.emailVerified) {
+          console.log('first', user)
+
+          // navigate(SCREENS.BOTTOM_NAVIGATOR)
+        }
+      } catch (error) {
+        if (error?.code === 'auth/invalid-credential') {
+          // console.log('first', )
+          showToast('error', error?.message)
+        } else {
+          // console.error('An error occurred:', error.message)
+        }
       }
     }
   }

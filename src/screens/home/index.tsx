@@ -12,6 +12,7 @@ const HomeScreen = () => {
         flex: 1,
         // backgroundColor: 'red',
         alignItems: 'center',
+        // padding: 10,
         justifyContent: 'center',
       }}>
       <Text>HomeScreen</Text>

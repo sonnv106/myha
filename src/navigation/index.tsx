@@ -29,12 +29,9 @@ const RootNavigator = () => {
     }, 1500)
     // dispatch(autoLoginPending())
     const unsubscribe = auth().onAuthStateChanged(user => {
-      if (user && user.providerId == 'password' && user.emailVerified) {
-      }
       if (user) {
         dispatch(autoLoginFulfilled(user))
       } else {
-        console.log('reject')
         dispatch(autoLoginRejected())
       }
     })
@@ -43,7 +40,31 @@ const RootNavigator = () => {
       clearTimeout(timeout)
     }
   }, [])
+  const verify = ({user}: any) => {
+    console.log('user', user)
 
+    if (
+      user?.providerData?.[0]?.providerId == 'facebook.com' ||
+      user?.providerData?.[1]?.providerId == 'facebook.com'
+    ) {
+      return true
+    }
+    if (
+      user?.providerData?.[0]?.providerId == 'google.com' ||
+      user?.providerData?.[1]?.providerId == 'google.com'
+    ) {
+      return true
+    }
+    if (
+      user?.providerData?.[0]?.providerId == 'password' &&
+      user?.emailVerified
+    ) {
+      console.log('hello')
+
+      return true
+    }
+    return false
+  }
   return (
     <Navigator
       screenOptions={{
@@ -53,7 +74,7 @@ const RootNavigator = () => {
         <Screen name={SCREENS.SPLASH} component={Splash} />
       ) : (
         <>
-          {!authState?.user ? (
+          {!verify(authState) ? (
             <Screen name={SCREENS.LOGIN} component={Login} />
           ) : (
             <Group>

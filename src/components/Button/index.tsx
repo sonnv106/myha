@@ -39,6 +39,8 @@ export default Button
 const styles = StyleSheet.create({
   txtTitle: {
     fontWeight: '600',
+    textAlign: 'center',
+    flex: 1,
   },
   btn: {
     shadowColor: colors.E4DDF6,
@@ -55,6 +57,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 23,
+    flexDirection: 'row',
   },
   pd: {
     paddingBottom: 10,
