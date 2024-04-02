@@ -5,16 +5,6 @@ import auth from '@react-native-firebase/auth'
 
 export const authSelector = state => state.auth
 
-// export const createUser = createAsyncThunk(
-//     'createUser', 
-//     async (_, {fulfillWithValue, rejectWithValue}) => {
-//     try {
-//         const response = await onGoogleButtonPress()
-//         return fulfillWithValue(response)
-//     } catch (error) {
-//         return rejectWithValue(error)
-//     } 
-// });
 export const createUserWithEmailAndPassword = createAsyncThunk(
     'createUserWithEmailAndPassword', 
     async (params, {fulfillWithValue, rejectWithValue}) => {
@@ -24,7 +14,6 @@ export const createUserWithEmailAndPassword = createAsyncThunk(
             params.password,
         )
         if(response){
-            console.log('1111' , response)
             response.user.sendEmailVerification()
         }
         return fulfillWithValue(response)
@@ -32,6 +21,20 @@ export const createUserWithEmailAndPassword = createAsyncThunk(
         return rejectWithValue(error)
     } 
 });
+export const signInWithEmailAndPassword = createAsyncThunk(
+    'signInWithEmailAndPassword', 
+    async (params, {fulfillWithValue, rejectWithValue}) => {
+    try {
+        const response = await auth().signInWithEmailAndPassword(
+            params.email,
+            params.password,
+        )
+        return fulfillWithValue(response.user)
+    } catch (error) {
+        return rejectWithValue(error)
+    } 
+});
+
 
 const authSlice = createSlice({
     name: 'auth',
@@ -50,8 +53,6 @@ const authSlice = createSlice({
             state.user = action.payload
         },
             autoLoginRejected(state) {
-            console.log('reject', state);
-            
             state.loading = false
             state.user = null
         },
@@ -80,6 +81,20 @@ const authSlice = createSlice({
             state.error = ''
         })
         builder.addCase(createUserWithEmailAndPassword.rejected, (state, action)=>{
+            state.loading = false
+            state.user = null
+            state.error = action.payload
+        })
+
+        builder.addCase(signInWithEmailAndPassword.pending, (state)=>{
+            state.loading = true
+        })
+        builder.addCase(signInWithEmailAndPassword.fulfilled, (state, action)=>{
+            state.loading = false
+            state.user = action.payload
+            state.error = ''
+        })
+        builder.addCase(signInWithEmailAndPassword.rejected, (state, action)=>{
             state.loading = false
             state.user = null
             state.error = action.payload

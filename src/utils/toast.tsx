@@ -6,6 +6,7 @@ export const showToast = (
   type: 'success' | 'error' | 'info',
   text1: string,
   text2?: string,
+  visibilityTime?: number,
 ) => {
   switch (type) {
     case 'success':
@@ -14,7 +15,7 @@ export const showToast = (
         text1,
         text2,
         position: 'bottom',
-        visibilityTime: 2000,
+        visibilityTime: visibilityTime ?? 2000,
         autoHide: true,
         bottomOffset: 50,
       })
@@ -25,7 +26,7 @@ export const showToast = (
         text1,
         text2,
         position: 'bottom',
-        visibilityTime: 2000,
+        visibilityTime: visibilityTime ?? 2000,
         autoHide: true,
         bottomOffset: 50,
       })
@@ -36,7 +37,7 @@ export const showToast = (
         text1,
         text2,
         position: 'bottom',
-        visibilityTime: 2000,
+        visibilityTime: visibilityTime ?? 2000,
         autoHide: true,
         bottomOffset: 50,
       })

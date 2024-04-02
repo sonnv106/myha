@@ -13,6 +13,7 @@ import {
   authSelector,
   autoLoginFulfilled,
   createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
 } from '../../features'
 import {onFacebookButtonPress, onGoogleButtonPress} from './LoginManager'
 import {GoogleSignin} from '@react-native-google-signin/google-signin'
@@ -44,7 +45,6 @@ const LoginScreen = () => {
   const authState = useSelector<IRootState>(state => state.auth)
   const {navigate} = useNavigation<NativeStackNavigationProp<any>>()
   const {t} = useTranslation()
-  console.log('authState?.loading', authState?.loading)
 
   const {
     control,
@@ -96,26 +96,38 @@ const LoginScreen = () => {
       }
     }
     if (formType == 'login') {
-      try {
-        const user = await auth().signInWithEmailAndPassword(
-          data.email,
-          data.password,
-        )
-        if (user && user.user.emailVerified) {
-          console.log('ssss', user)
-          // navigate(SCREENS.BOTTOM_NAVIGATOR)
-        }
-        if (user && !user.user.emailVerified) {
-          showToast('info', 'Vui lòng xác minh email!')
-          return
-        }
-      } catch (error) {
-        if (error?.code === 'auth/invalid-credential') {
+      dispatchThunk(
+        dispatch,
+        signInWithEmailAndPassword(data),
+        (response: any) => {
+          if (!response?.emailVerified) {
+            showToast('info', 'Vui lòng xác thực email', undefined, 3500)
+          }
+        },
+        (error: any) => {
           showToast('error', error?.message)
-        } else {
-          // console.error('An error occurred:', error.message)
-        }
-      }
+        },
+      )
+      // try {
+      //   const user = await auth().signInWithEmailAndPassword(
+      //     data.email,
+      //     data.password,
+      //   )
+      //   if (user && user.user.emailVerified) {
+      //     console.log('ssss', user)
+      //     // navigate(SCREENS.BOTTOM_NAVIGATOR)
+      //   }
+      //   if (user && !user.user.emailVerified) {
+      //     showToast('info', 'Vui lòng xác minh email!')
+      //     return
+      //   }
+      // } catch (error) {
+      //   if (error?.code === 'auth/invalid-credential') {
+      //     showToast('error', error?.message)
+      //   } else {
+      //     // console.error('An error occurred:', error.message)
+      //   }
+      // }
     }
   }
   const checkLogin = formType == 'login' ? colors.primary : colors.white
