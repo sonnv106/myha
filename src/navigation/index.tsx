@@ -22,7 +22,6 @@ const RootNavigator = () => {
   const dispatch = useDispatch()
   const authState = useSelector<IRootState>(state => state.auth)
   console.log('auth state', authState)
-
   useEffect(() => {
     const timeout = setTimeout(() => {
       setLoading(false)
@@ -30,6 +29,7 @@ const RootNavigator = () => {
     // dispatch(autoLoginPending())
     const unsubscribe = auth().onAuthStateChanged(user => {
       if (user) {
+        console.log('uuuu', user)
         dispatch(autoLoginFulfilled(user))
       } else {
         dispatch(autoLoginRejected())
@@ -41,8 +41,7 @@ const RootNavigator = () => {
     }
   }, [])
   const verify = ({user}: any) => {
-    console.log('user', user)
-
+    console.log('2222', user)
     if (
       user?.providerData?.[0]?.providerId == 'facebook.com' ||
       user?.providerData?.[1]?.providerId == 'facebook.com'
@@ -59,8 +58,6 @@ const RootNavigator = () => {
       user?.providerData?.[0]?.providerId == 'password' &&
       user?.emailVerified
     ) {
-      console.log('hello')
-
       return true
     }
     return false
@@ -69,6 +66,7 @@ const RootNavigator = () => {
     <Navigator
       screenOptions={{
         headerShown: false,
+        gestureEnabled: false,
       }}>
       {loading ? (
         <Screen name={SCREENS.SPLASH} component={Splash} />
@@ -77,12 +75,10 @@ const RootNavigator = () => {
           {!verify(authState) ? (
             <Screen name={SCREENS.LOGIN} component={Login} />
           ) : (
-            <Group>
-              <Screen
-                name="BottomTabNavigator"
-                component={BottomTabNavigator}
-              />
-            </Group>
+            <Screen
+              name={SCREENS.BOTTOM_NAVIGATOR}
+              component={BottomTabNavigator}
+            />
           )}
         </>
       )}

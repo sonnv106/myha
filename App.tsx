@@ -18,7 +18,7 @@ function App(): React.JSX.Element {
       authStatus === messaging.AuthorizationStatus.PROVISIONAL
 
     if (enabled) {
-      console.log('Authorization status:', authStatus)
+      // console.log('Authorization status:', authStatus)
     }
   }
   useEffect(() => {
@@ -44,8 +44,8 @@ function App(): React.JSX.Element {
       <PersistGate persistor={persistor} loading={null}>
         <NavigationContainer>
           <RootNavigator />
-          <Toast />
         </NavigationContainer>
+        <Toast />
       </PersistGate>
     </Provider>
   )
