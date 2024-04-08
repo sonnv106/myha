@@ -8,10 +8,8 @@ import styles from './styles'
 import Button from '../../components/Button'
 import {useForm} from 'react-hook-form'
 import Input from '../../components/Input'
-import auth from '@react-native-firebase/auth'
 import {
   authSelector,
-  autoLoginFulfilled,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
 } from '../../features'
@@ -25,8 +23,7 @@ import {IRootState} from '../../redux'
 import {validateEmail, validatePassword} from '../../utils/validate'
 import {yupResolver} from '@hookform/resolvers/yup'
 import yup from '../../utils/yup'
-import SCREENS from '../../constants/screens'
-import {autoLogIn} from '../../api'
+import CheckEmailModal from '../../components/Modal/checkEmail'
 
 interface FormData {
   email: string
@@ -34,7 +31,7 @@ interface FormData {
   confirmPassword?: string
 }
 const schema = yup.object().shape({
-  email: yup.string().trim().email(),
+  email: yup.string().trim().email().required('Vui lòng nhập email!'),
   password: yup.string().isValidPassword(),
   confirmPassword: yup.string().isValidConfirmPassword(),
 })
@@ -45,6 +42,7 @@ const LoginScreen = () => {
   const authState = useSelector<IRootState>(state => state.auth)
   const {navigate} = useNavigation<NativeStackNavigationProp<any>>()
   const {t} = useTranslation()
+  const [visible, setVisible] = useState(true)
 
   const {
     control,
@@ -57,7 +55,7 @@ const LoginScreen = () => {
       password: '',
       confirmPassword: '',
     },
-    resolver: formType == 'signup' ? yupResolver(schema) : undefined,
+    resolver: yupResolver(schema),
   })
 
   const dispatch = useDispatch()
@@ -85,49 +83,32 @@ const LoginScreen = () => {
     formType == 'login' ? delete data.confirmPassword : data
     if (formType == 'signup') {
       if (validatePassword(data.password) && validateEmail(data.email)) {
-        // const userCredential = await auth().createUserWithEmailAndPassword(
-        //   data.email,
-        //   data.password,
-        // )
-        // userCredential.user.sendEmailVerification()
         dispatchThunk(dispatch, createUserWithEmailAndPassword(data), () => {
           showToast('success', 'Vui lòng kiểm tra email! ')
+          reset()
         })
       }
     }
     if (formType == 'login') {
-      dispatchThunk(
-        dispatch,
-        signInWithEmailAndPassword(data),
-        (response: any) => {
-          if (!response?.emailVerified) {
-            showToast('info', 'Vui lòng xác thực email', undefined, 3500)
-          }
-        },
-        (error: any) => {
-          showToast('error', error?.message)
-        },
-      )
-      // try {
-      //   const user = await auth().signInWithEmailAndPassword(
-      //     data.email,
-      //     data.password,
-      //   )
-      //   if (user && user.user.emailVerified) {
-      //     console.log('ssss', user)
-      //     // navigate(SCREENS.BOTTOM_NAVIGATOR)
-      //   }
-      //   if (user && !user.user.emailVerified) {
-      //     showToast('info', 'Vui lòng xác minh email!')
-      //     return
-      //   }
-      // } catch (error) {
-      //   if (error?.code === 'auth/invalid-credential') {
-      //     showToast('error', error?.message)
-      //   } else {
-      //     // console.error('An error occurred:', error.message)
-      //   }
-      // }
+      if (
+        data.email &&
+        validateEmail(data.email) &&
+        data.password &&
+        validatePassword(data.password)
+      ) {
+        dispatchThunk(
+          dispatch,
+          signInWithEmailAndPassword(data),
+          (response: any) => {
+            if (!response?.emailVerified) {
+              showToast('info', 'Vui lòng xác thực email', undefined, 3500)
+            }
+          },
+          (error: any) => {
+            showToast('error', error?.message)
+          },
+        )
+      }
     }
   }
   const checkLogin = formType == 'login' ? colors.primary : colors.white
@@ -241,6 +222,7 @@ const LoginScreen = () => {
               <Pressable style={styles.btnGoogle} onPress={signInWithFacebook}>
                 <Image source={images.icFacebook} />
               </Pressable>
+              <CheckEmailModal visible={visible} setVisible={setVisible} />
               {/* <Text>{render}</Text> */}
             </View>
           </View>
